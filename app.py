@@ -8,7 +8,7 @@ import streamlit as st
 
 def miller_rabin(n, k=40):
     """Miller-Rabin test prostosti
-    Vrace True ako je broj vjerojatno prost
+    Vraca True ako je broj vjerojatno prost
     """
     if n == 2 or n == 3:
         return True
@@ -29,7 +29,7 @@ def miller_rabin(n, k=40):
             continue
         for _ in range(r - 1):
             x = pow(x, 2, n)
-            if x == n - 1: #treba svi da budu jednaki -1 
+            if x == n - 1: #treba jedan da je jednak -1 
                 break
         else:
             return False
@@ -95,23 +95,21 @@ def prim_num_find(k):
 def rsa_set(k, e=65537):
     """Postavlja RSA sistem i vraća parametre kao stringove"""
 
-    # 1. Pronađi p i q
     p_str = prim_num_find(k)
     q_str = prim_num_find(k)
 
     p = int(p_str)
     q = int(q_str)
 
-    # Osiguraj da p i q nisu isti
+    #  p i q nisu isti
     while p == q:
         q_str = prim_num_find(k)
         q = int(q_str)
 
-    # 2. Izračunaj N i φ(N)
     N = p * q
     phi = (p - 1) * (q - 1)
 
-    # 3. Provjeri da li je e dozvoljen
+    # da li je e dozvoljen
     if gcd(e, phi) != 1:
         raise ValueError(
             f"Izabrani eksponent e = {e} nije relativno prost sa φ(N)."
@@ -331,13 +329,11 @@ div[data-testid="stDownloadButton"] > button:hover{
 # HERO
 st.markdown("""
 <div class="hero">
-    <h1>🔐 RSA Cryptosystem Dashboard</h1>
+    <h1>RSA kriptosistem </h1>
     <p>Implementacija asimetrične kriptografije za sigurno šifrovanje poruka</p>
 </div>
 """, unsafe_allow_html=True)
 
-# GLAVNI DASHBOARD
-# TABS
 
 tab1, tab2, tab3, tab4 = st.tabs([
     "⚡ Generisanje parametara",
@@ -350,7 +346,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 
 with tab1:
 
-    st.subheader("🔑 Generisanje RSA ključeva")
+    st.subheader("Generisanje RSA ključeva")
 
     st.info("""
     Ovaj dio aplikacije služi za generisanje RSA kriptografskog sistema.
@@ -377,7 +373,7 @@ with tab1:
         value=30
     )
 
-    if st.button("🔑 Generiši RSA ključeve"):
+    if st.button("Generiši RSA ključeve"):
 
         with st.spinner("Generisanje RSA ključeva u toku..."):
 
@@ -406,7 +402,7 @@ with tab1:
 
 with tab2:
 
-    st.subheader("🔒 Enkripcija poruke")
+    st.subheader("Enkripcija poruke")
 
     st.info("""
     Ovaj dio aplikacije služi za RSA enkripciju poruka.
@@ -483,7 +479,7 @@ with tab2:
             key="public_e_view"
         )
 
-    if st.button("🔐 Enkriptuj poruku"):
+    if st.button("Enkriptuj poruku"):
 
         if not st.session_state["N"]:
 
@@ -527,7 +523,7 @@ with tab2:
                 )
 
                 st.download_button(
-                    "💾 Sačuvaj šifrat",
+                    "Sačuvaj šifrat",
                     cipher,
                     file_name="sifrat.txt",
                     mime="text/plain"
@@ -541,7 +537,7 @@ with tab2:
 # TAB 3 - DEKRIPCIJA
 with tab3:
 
-    st.subheader("🔓 Dekripcija poruke")
+    st.subheader("Dekripcija poruke")
 
     st.info("""
     Ovaj dio aplikacije služi za RSA dekripciju šifrata.
@@ -625,7 +621,7 @@ with tab3:
             key="private_d_view"
         )
 
-    if st.button("🔓 Dekriptuj poruku"):
+    if st.button("Dekriptuj poruku"):
 
         if not st.session_state["N"]:
 
@@ -672,7 +668,7 @@ with tab3:
                 )
 
                 st.download_button(
-                    "💾 Sačuvaj dekriptovanu poruku",
+                    "Sačuvaj dekriptovanu poruku",
                     text,
                     file_name="dekriptovana_poruka.txt",
                     mime="text/plain"
