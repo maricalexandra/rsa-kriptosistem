@@ -469,14 +469,12 @@ with tab2:
             value=st.session_state["N"],
             height=120,
             disabled=True,
-            key="public_N_view"
         )
 
         st.text_input(
             "Javni eksponent e",
             value=st.session_state["e"],
             disabled=True,
-            key="public_e_view"
         )
 
     if st.button("Enkriptuj poruku"):
@@ -610,7 +608,6 @@ with tab3:
             value=st.session_state["N"],
             height=120,
             disabled=True,
-            key="private_N_view"
         )
 
         st.text_area(
@@ -618,7 +615,6 @@ with tab3:
             value=st.session_state["d"],
             height=120,
             disabled=True,
-            key="private_d_view"
         )
 
     if st.button("Dekriptuj poruku"):
